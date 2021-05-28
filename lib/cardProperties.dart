@@ -5,27 +5,19 @@ class DetailCard extends StatelessWidget {
   String loadingPoint;
   String unloadingPoint;
   String truckPreference;
-  String noOfTrucks;
   String weight;
-  bool isPending;
-  String comments;
-  bool isCommentsEmpty;
 
   DetailCard(
       {this.loadingPoint,
         this.unloadingPoint,
         this.productType,
         this.truckPreference,
-        this.noOfTrucks,
-        this.weight,
-        this.isPending,
-        this.comments,
-        this.isCommentsEmpty});
+        this.weight,});
 
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      Card(
+      Card(elevation: 10,
         child: Column(
           children: [
             Row(
@@ -47,10 +39,12 @@ class DetailCard extends StatelessWidget {
                               SizedBox(
                                 width: 8,
                               ),
-                              Text(
-                                "$loadingPoint",
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w500),
+                              Expanded(
+                                child: Text(
+                                  "$loadingPoint",
+                                  style: TextStyle(
+                                      fontSize: 18, fontWeight: FontWeight.w500),
+                                ),
                               ),
                             ],
                           ),
@@ -67,10 +61,12 @@ class DetailCard extends StatelessWidget {
                               SizedBox(
                                 width: 8,
                               ),
-                              Text(
-                                "$unloadingPoint",
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w500),
+                              Expanded(
+                                child: Text(
+                                  "$unloadingPoint",
+                                  style: TextStyle(
+                                      fontSize: 18, fontWeight: FontWeight.w500),
+                                ),
                               ),
                             ],
                           ),
@@ -121,39 +117,43 @@ class DetailCard extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                Container(
-                                  child: Column(
-                                    children: [
-                                      Column(
-                                        children: [
-                                          Text("Tyre",
-                                              style: TextStyle(
-                                                fontSize: 11,
-                                              )),
-                                          Text("NA",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 14,
-                                              ))
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 8,
-                                      ),
-                                      Column(
-                                        children: [
-                                          Text("Product Type",
-                                              style: TextStyle(
-                                                fontSize: 11,
-                                              )),
-                                          Text("$productType",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 14,
-                                              ))
-                                        ],
-                                      )
-                                    ],
+                                Expanded(
+                                  child: Container(
+                                    child: Column(
+                                      children: [
+                                        Column(
+                                          children: [
+                                            Text("Tyre",
+                                                style: TextStyle(
+                                                  fontSize: 11,
+                                                )),
+                                            Text("NA",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 14,
+                                                ))
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 8,
+                                        ),
+                                        Column(
+                                          children: [
+                                            Text("Product Type",
+                                                style: TextStyle(
+                                                  fontSize: 11,
+                                                )),
+                                            Container(
+                                              child: Text("$productType",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 14,
+                                                  )),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ],

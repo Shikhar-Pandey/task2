@@ -13,29 +13,23 @@ class FindLoad extends StatefulWidget {
 }
 
 class _FindLoadState extends State<FindLoad> {
-  var  jsonData;
+  var jsonData;
+  List<CardsModal> card = [];
 
   Future<List<CardsModal>> getCardsData() async {
     http.Response response = await http.get('http://52.53.40.46:8080/load');
-    if(response.statusCode==200){
       jsonData = json.decode(response.body);
-    }
-
-    List<CardsModal> card = [];
 
     for (var json in jsonData) {
-      CardsModal cardsModal = new CardsModal();
+      CardsModal cardsModal = CardsModal();
       cardsModal.loadingPoint = json["loadingPoint"];
       cardsModal.unloadingPoint = json["unloadingPoint"];
       cardsModal.productType = json["productType"];
       cardsModal.truckType = json["truckType"];
-      cardsModal.noOfTrucks = json["noOfTrucks"];
       cardsModal.weight = json["weight"];
-      cardsModal.comment = json["comment"];
-      cardsModal.status = json["status"];
       card.add(cardsModal);
     }
-    return  await card;
+    return card;
   }
 
   @override
@@ -44,12 +38,14 @@ class _FindLoadState extends State<FindLoad> {
         child: Scaffold(
             backgroundColor: Color(0xFFF3F2F1),
             body: ListView(
+              physics: NeverScrollableScrollPhysics(),
               children: [
                 Container(
-                    padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 5.0),
+                    padding:
+                        EdgeInsets.fromLTRB(1, 1, 1, 2),
                     child: Column(
                       children: [
-                        Container(
+                        Container(padding: EdgeInsets.only(top: 5),
                           decoration: BoxDecoration(color: Colors.white),
                           child: Column(
                             children: [
@@ -73,158 +69,148 @@ class _FindLoadState extends State<FindLoad> {
                               SizedBox(
                                 height: 15,
                               ),
-                              Card(
-                                  shape: RoundedRectangleBorder(
-                                    side: BorderSide(color: Colors.black),
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(35),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 8),
+                                child: Card(
+                                    shape: RoundedRectangleBorder(
+                                      side: BorderSide(color: Colors.black),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(35),
+                                      ),
                                     ),
-                                  ),
-                                  child: ListTile(
-                                    leading: Icon(
-                                      Icons.circle,
-                                      color: Colors.green,
-                                      size: 20,
-                                    ),
-                                    title: TextField(
-                                      decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          hintText: "Enter loading point",
-                                          hintStyle:
-                                              TextStyle(color: Colors.black)),
-                                    ),
-                                    trailing:
-                                        GestureDetector(child: Icon(Icons.close)),
-                                  )),
+                                    child: ListTile(
+                                      leading: Icon(
+                                        Icons.circle,
+                                        color: Colors.green,
+                                        size: 20,
+                                      ),
+                                      title: TextField(
+                                        decoration: InputDecoration(
+                                            border: InputBorder.none,
+                                            hintText: "Enter loading point",
+                                            hintStyle:
+                                                TextStyle(color: Colors.black)),
+                                      ),
+                                      trailing:
+                                          GestureDetector(child: Icon(Icons.close)),
+                                    )),
+                              ),
                               SizedBox(
                                 height: 15,
                               ),
-                              Card(
-                                  shape: RoundedRectangleBorder(
-                                    side: BorderSide(color: Colors.black),
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(35),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 8),
+                                child: Card(
+                                    shape: RoundedRectangleBorder(
+                                      side: BorderSide(color: Colors.black),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(35),
+                                      ),
                                     ),
-                                  ),
-                                  child: ListTile(
-                                    leading: Icon(
-                                      Icons.circle,
-                                      color: Colors.red,
-                                      size: 20,
-                                    ),
-                                    title: TextField(
-                                      decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          hintText: "Enter unloading point",
-                                          hintStyle:
-                                              TextStyle(color: Colors.black)),
-                                    ),
-                                    trailing: Icon(Icons.close),
-                                  ))
+                                    child: ListTile(
+                                      leading: Icon(
+                                        Icons.circle,
+                                        color: Colors.red,
+                                        size: 20,
+                                      ),
+                                      title: TextField(
+                                        decoration: InputDecoration(
+                                            border: InputBorder.none,
+                                            hintText: "Enter unloading point",
+                                            hintStyle:
+                                                TextStyle(color: Colors.black)),
+                                      ),
+                                      trailing: Icon(Icons.close),
+                                    )),
+                              )
                             ],
                           ),
                         ),
-                        SizedBox(
-                          height: 2,
-                        ),
-                        Container(
-                            padding:
-                                EdgeInsets.symmetric(horizontal: 12, vertical: 15),
-                            decoration: BoxDecoration(color: Colors.white),
-                            child: ListView(shrinkWrap: true,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Available Loads',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18),
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 2),
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(20),
-                                          border: Border.all(color: Colors.indigo)),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Text(
-                                            "Filter",
-                                            style: TextStyle(fontSize: 14),
-                                          ),
-                                          Icon(
-                                            Icons.filter_alt_outlined,
-                                            color: Colors.indigo.shade300,
-                                          )
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    FutureBuilder(
-                                        future: getCardsData(),
-                                        builder: (BuildContext context,
-                                            AsyncSnapshot snapshot) {
-                                          if (snapshot.data == null) {
-                                            return Container(
-                                              child: Center(
-                                                  child: SpinKitWave(
-                                                color: Colors.lightBlueAccent,
-                                                size: 60,
-                                              )),
-                                            );
-                                          }
-                                          return ListView.builder(
-                                            reverse: false,
-                                            shrinkWrap: true,
-                                            padding: EdgeInsets.symmetric(
-                                              horizontal: 10,
-                                            ),
-                                            itemCount: snapshot.data.length,
-                                            itemBuilder: (BuildContext context, index) =>
-                                                DetailCard(
-                                              loadingPoint:
-                                                  snapshot.data[index].loadingPoint,
-                                              unloadingPoint: snapshot
-                                                  .data[index].unloadingPoint,
-                                              productType:
-                                                  snapshot.data[index].productType,
-                                              truckPreference:
-                                                  snapshot.data[index].truckType,
-                                              noOfTrucks:
-                                                  snapshot.data[index].noOfTrucks,
-                                              weight: snapshot.data[index].weight,
-                                              isPending:
-                                                  snapshot.data[index].status ==
-                                                          'pending'
-                                                      ? true
-                                                      : false,
-                                              comments:
-                                                  snapshot.data[index].comment,
-                                              isCommentsEmpty:
-                                                  snapshot.data[index].comment == ''
-                                                      ? true
-                                                      : false,
-                                            ),
-                                          );
-                                        }),
-                                  ],
-                                ),
-                              ],
-                            ))
                       ],
                     )),
+                Container(
+                    padding: EdgeInsets.fromLTRB(12, 15, 12, 5),
+                    decoration: BoxDecoration(color: Colors.white),
+                    child: Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Available Loads',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18),
+                            ),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 2),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  border:
+                                  Border.all(color: Colors.indigo)),
+                              child: Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text(
+                                    "Filter",
+                                    style: TextStyle(fontSize: 14),
+                                  ),
+                                  Icon(
+                                    Icons.filter_alt_outlined,
+                                    color: Colors.indigo.shade300,
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+
+                    ),
+                Container(color: Colors.white,
+                  child: Column(
+                    children: [
+                      FutureBuilder(
+                          future: getCardsData(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot snapshot) {
+                            if (snapshot.data == null) {
+                              return Container(
+                                child: Center(
+                                    child: SpinKitWave(
+                                      color: Colors.lightBlueAccent,
+                                      size: 60,
+                                    )),
+                              );
+                            }
+                            return Container(height:  MediaQuery.of(context).size.height,
+                              child: ListView.builder(
+                                reverse: false,
+                                shrinkWrap: true,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                ),
+                                itemCount: (snapshot.data.length),
+                                itemBuilder:
+                                    (BuildContext context, index) =>
+                                    DetailCard(
+                                      loadingPoint: snapshot
+                                          .data[index].loadingPoint,
+                                      unloadingPoint: snapshot
+                                          .data[index].unloadingPoint,
+                                      productType: snapshot
+                                          .data[index].productType,
+                                      truckPreference: snapshot
+                                          .data[index].truckType,
+                                      weight:
+                                      snapshot.data[index].weight,
+                                      ),
+                              ),
+                            );
+                          }),
+                    ],
+                  ),
+                ),
               ],
             )));
   }
